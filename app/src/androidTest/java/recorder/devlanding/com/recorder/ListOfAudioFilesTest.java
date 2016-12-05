@@ -11,6 +11,8 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import recorder.devlanding.com.recorder.ListOfAudioFiles.ListOfAudioFiles;
+import recorder.devlanding.com.recorder.RecordVoice.RecordVoiceActivity;
+
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 /**
  * Created by ted on 12/2/16.
@@ -30,5 +32,4 @@ public class ListOfAudioFilesTest {
 
         Assert.assertNotNull("RecordVoidActivity not launched", nextActivity);
     }
-
 }

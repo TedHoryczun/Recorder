@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import recorder.devlanding.com.recorder.R;
-import recorder.devlanding.com.recorder.RecordVoiceActivity;
+import recorder.devlanding.com.recorder.RecordVoice.RecordVoiceActivity;
 
 public class ListOfAudioFiles extends AppCompatActivity implements ListOfAudioFilesMVP.view {
     @BindView(R.id.fab)
