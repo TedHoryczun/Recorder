@@ -1,6 +1,7 @@
 package recorder.devlanding.com.recorder;
 
 import android.os.Environment;
+import android.os.Handler;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
@@ -64,8 +65,19 @@ public class RecordVoideActivityTest {
         Assert.assertTrue(file.exists());
     }
     @Test
-    public void textViewCountsWhenStartRecord(){
-        
+    public void textViewCountsWhenStartRecord() throws InterruptedException {
+        Espresso.onView(ViewMatchers.withId(R.id.onRecord)).perform(ViewActions.click());
+
+        int second = 00;
+        for (int i = 0; i < 10; i++) {
+
+            String timerText = "00:00:" + String.format("%02d", second);
+
+                Espresso.onView(ViewMatchers.withId(R.id.timer)).
+                        check(ViewAssertions.matches(ViewMatchers.withText(timerText)));
+            second++;
+            TimeUnit.SECONDS.sleep(1);
+        }
     }
 
 }
