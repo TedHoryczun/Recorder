@@ -11,6 +11,10 @@ public class RecordVoiceMVP {
 
         void setStopButtonInvisible();
         void setStopButtonVisible();
+
+        void incrementTimerBy1(int num);
+
+        void stopTimer();
     }
     interface presenter{
         void setRecordbuttonInvisible();
@@ -18,5 +22,7 @@ public class RecordVoiceMVP {
 
         void setStopButtonInvisible();
         void setStopButtonVisible();
+
+        void startTimer();
     }
 }

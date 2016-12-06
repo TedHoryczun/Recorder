@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.Date;
@@ -19,6 +20,9 @@ public class RecordVoiceActivity extends AppCompatActivity implements RecordVoic
 
     @BindView(R.id.onStop)
     ImageView onStopButton;
+
+    @BindView(R.id.timer)
+    TextView timerText;
     private RecordVoicePresenter presenter;
 
     @Override
@@ -33,6 +37,7 @@ public class RecordVoiceActivity extends AppCompatActivity implements RecordVoic
     public void recordVoice(){
         presenter.setRecordbuttonInvisible();
         presenter.setStopButtonVisible();
+        presenter.startTimer();
         RedRecorder recorder = new RedRecorder();
         Date date = new Date(System.currentTimeMillis());
         try {
@@ -46,6 +51,7 @@ public class RecordVoiceActivity extends AppCompatActivity implements RecordVoic
     public void stopRecordingVoice(){
         presenter.setStopButtonInvisible();
         presenter.setRecordButtonVisible();
+        presenter.stopTimer();
     }
 
     @Override
@@ -66,5 +72,15 @@ public class RecordVoiceActivity extends AppCompatActivity implements RecordVoic
     @Override
     public void setStopButtonVisible() {
         onStopButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void incrementTimerBy1(int second) {
+        timerText.setText("00:00:" + String.format("%02d", second));
+    }
+
+    @Override
+    public void stopTimer() {
+        timerText.setText("00:00:00");
     }
 }
