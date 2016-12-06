@@ -29,16 +29,16 @@ public class RecordVoideActivityTest {
 
     @Rule
     public ActivityTestRule<RecordVoiceActivity> activity =
-    new ActivityTestRule<>(RecordVoiceActivity.class);
+            new ActivityTestRule<>(RecordVoiceActivity.class);
 
     @Test
-    public void testRecordButtonChangesImageToPause(){
+    public void testRecordButtonChangesImageToPause() {
         Espresso.onView(ViewMatchers.withId(R.id.onRecord)).perform(ViewActions.click()).
                 check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
     }
 
     @Test
-    public void testOnStopButtonIsDisplayedAfterOnRecordClicked(){
+    public void testOnStopButtonIsDisplayedAfterOnRecordClicked() {
         Espresso.onView(ViewMatchers.withId(R.id.onRecord)).perform(ViewActions.click()).
                 check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.onStop)).
@@ -47,7 +47,7 @@ public class RecordVoideActivityTest {
 
 
     @Test
-    public void testIfRecordVoiceCreatesFile(){
+    public void testIfRecordVoiceCreatesFile() {
         RedRecorder recorder = new RedRecorder();
         Date date = new Date(System.currentTimeMillis());
         try {
@@ -64,17 +64,42 @@ public class RecordVoideActivityTest {
         File file = new File(audioPath);
         Assert.assertTrue(file.exists());
     }
+
+    @Test
+    public void testIfRecordVoiceCreatesFileOnSecondRecord() throws InterruptedException {
+        Espresso.onView(ViewMatchers.withId(R.id.onRecord)).perform(ViewActions.click());
+        Thread.sleep(2000);
+        Espresso.onView(ViewMatchers.withId(R.id.onStop)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.onRecord)).perform(ViewActions.click());
+        Date date = new Date(System.currentTimeMillis());
+        Thread.sleep(2000);
+        Espresso.onView(ViewMatchers.withId(R.id.onStop)).perform(ViewActions.click());
+
+        String audioPath = Environment.getExternalStorageDirectory().getPath() + "/Music/" + date.toString();
+        File file = new File(audioPath);
+        Assert.assertTrue(file.exists());
+    }
+
     @Test
     public void textViewCountsWhenStartRecord() throws InterruptedException {
         Espresso.onView(ViewMatchers.withId(R.id.onRecord)).perform(ViewActions.click());
 
         int second = 00;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 62; i++) {
 
-            String timerText = "00:00:" + String.format("%02d", second);
+
+            if (second >= 60) {
+                String minutes = String.format("%02d", second / 60);
+                String seconds = String.format("%02d", second % 60);
+                String timerText = "00:" + minutes + ":" + seconds;
 
                 Espresso.onView(ViewMatchers.withId(R.id.timer)).
                         check(ViewAssertions.matches(ViewMatchers.withText(timerText)));
+            } else {
+                String timerText = "00:00:" + String.format("%02d", second);
+                Espresso.onView(ViewMatchers.withId(R.id.timer)).
+                        check(ViewAssertions.matches(ViewMatchers.withText(timerText)));
+            }
             second++;
             TimeUnit.SECONDS.sleep(1);
         }

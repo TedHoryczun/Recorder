@@ -50,7 +50,7 @@ public class RecordVoicePresenter implements RecordVoiceMVP.presenter{
             @Override
             public void run() {
                 if(!mStopHandler){
-                    view.incrementTimerBy1(num++);
+                    view.incrementTimerBy1Second(num++);
                    handler.postDelayed(this, 1000);
                 }
             }

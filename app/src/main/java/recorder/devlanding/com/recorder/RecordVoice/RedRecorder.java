@@ -22,7 +22,12 @@ public class RedRecorder {
         recorder.setOutputFile(Environment.getExternalStorageDirectory().getPath() + "/Music/" + currentDate);
         recorder.prepare();
 
-        recorder.start();
+        try{
+
+            recorder.start();
+        }catch(IllegalStateException e){
+            e.printStackTrace();
+        }
 
     }
 

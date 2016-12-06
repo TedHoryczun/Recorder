@@ -75,8 +75,18 @@ public class RecordVoiceActivity extends AppCompatActivity implements RecordVoic
     }
 
     @Override
-    public void incrementTimerBy1(int second) {
-        timerText.setText("00:00:" + String.format("%02d", second));
+    public void incrementTimerBy1Second(int second) {
+        String formattedSeconds;
+        if(second >=60){
+            formattedSeconds = String.format("%02d", second % 60);
+            String minutes = String.format("%02d", second / 60);
+            timerText.setText("00:" + minutes + ":" + formattedSeconds);
+
+        }else{
+            formattedSeconds = String.format("%02d", second);
+            timerText.setText("00:00:" + formattedSeconds);
+
+        }
     }
 
     @Override

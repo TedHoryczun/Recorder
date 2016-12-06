@@ -12,7 +12,7 @@ public class RecordVoiceMVP {
         void setStopButtonInvisible();
         void setStopButtonVisible();
 
-        void incrementTimerBy1(int num);
+        void incrementTimerBy1Second(int num);
 
         void stopTimer();
     }
