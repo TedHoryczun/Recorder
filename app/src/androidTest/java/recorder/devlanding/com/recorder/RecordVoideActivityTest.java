@@ -1,7 +1,6 @@
 package recorder.devlanding.com.recorder;
 
 import android.os.Environment;
-import android.os.Handler;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
@@ -70,8 +69,8 @@ public class RecordVoideActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.onRecord)).perform(ViewActions.click());
         Thread.sleep(2000);
         Espresso.onView(ViewMatchers.withId(R.id.onStop)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.onRecord)).perform(ViewActions.click());
         Date date = new Date(System.currentTimeMillis());
+        Espresso.onView(ViewMatchers.withId(R.id.onRecord)).perform(ViewActions.click());
         Thread.sleep(2000);
         Espresso.onView(ViewMatchers.withId(R.id.onStop)).perform(ViewActions.click());
 
